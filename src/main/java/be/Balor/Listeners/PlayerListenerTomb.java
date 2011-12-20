@@ -50,10 +50,10 @@ public class PlayerListenerTomb extends PlayerListener {
 		}
 	}
 
-	@Override
-	public void onPlayerQuit(PlayerQuitEvent event) {
-		worker.removePermissionNode(event.getPlayer().getName());
-	}
+//	@Override
+//	public void onPlayerQuit(PlayerQuitEvent event) {
+//		worker.removePermissionNode(event.getPlayer().getName());
+//	}
 
 	@Override
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
@@ -68,6 +68,9 @@ public class PlayerListenerTomb extends PlayerListener {
 
 	@Override
 	public void onPlayerInteract(PlayerInteractEvent event) {
+                if(event.isCancelled())
+                    return;
+                
 		Player p = event.getPlayer();
 		if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
 				&& (worker.getConfig().getBoolean("allow-tp", true) || worker.hasPerm(p, "tomb.tp",

@@ -94,9 +94,7 @@ public class TombSave implements Serializable {
 }
 
 class LocSave implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 8631716113887974333L;
 	private double x;
 	private double y;

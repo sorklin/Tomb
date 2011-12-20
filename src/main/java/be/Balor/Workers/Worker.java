@@ -16,13 +16,12 @@
  ************************************************************************/
 package be.Balor.Workers;
 
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.nijiko.permissions.PermissionHandler;
+//import com.nijiko.permissions.PermissionHandler;
 
 import be.Balor.register.payment.Method;
 
@@ -31,10 +30,10 @@ import be.Balor.register.payment.Method;
  * 
  */
 public abstract class Worker {
-	protected static PermissionHandler permission = null;
+//	protected static PermissionHandler permission = null;
 	public static final Logger log = Logger.getLogger("Minecraft");
 	protected static Method method = null;
-	protected HashMap<String, HashMap<String, Boolean>> permissions = new HashMap<String, HashMap<String, Boolean>>();
+//	protected HashMap<String, HashMap<String, Boolean>> permissions = new HashMap<String, HashMap<String, Boolean>>();
 	protected static boolean disable = false;
 
 	/**
@@ -69,50 +68,63 @@ public abstract class Worker {
 	 * @return
 	 */
 	public boolean hasPerm(Player player, String perm, boolean errorMsg) {
-		if (permission == null) {
-			if (perm.contains("admin") || perm.contains("free"))
-				return player.isOp();
-			return true;
-		}
-		String playerName = player.getName();
-		if (permissions.containsKey(playerName)) {
-			if (permissions.get(playerName).containsKey(perm))
-				if (permissions.get(playerName).get(perm))
-					return true;
-				else {
-					if (errorMsg)
-						player.sendMessage(ChatColor.RED
-								+ "You don't have the Permissions to do that " + ChatColor.BLUE
-								+ "(" + perm + ")");
-					return false;
-				}
-
-			if (permission.has(player, perm)) {
-				permissions.get(playerName).put(perm, true);
-				return true;
-			} else {
-				permissions.get(playerName).put(perm, false);
-				if (errorMsg)
-					player.sendMessage(ChatColor.RED + "You don't have the Permissions to do that "
-							+ ChatColor.BLUE + "(" + perm + ")");
-			}
-		} else {
-			permissions.put(playerName, new HashMap<String, Boolean>());
-			if (permission.has(player, perm)) {
-				permissions.get(playerName).put(perm, true);
-				return true;
-			} else {
-				permissions.get(playerName).put(perm, false);
-				if (errorMsg)
-					player.sendMessage(ChatColor.RED + "You don't have the Permissions to do that "
-							+ ChatColor.BLUE + "(" + perm + ")");
-			}
-
-		}
-
-		return false;
-
+                if(errorMsg){
+                    if(!player.hasPermission(perm) && !player.isOp()) {
+                        player.sendMessage(ChatColor.RED
+                            + "You don't have the Permissions to do that " + ChatColor.BLUE
+                            + "(" + perm + ")");
+                        return false;
+                    } else
+                        return true;
+                } else
+                    return (player.hasPermission(perm) || player.isOp());
 	}
+        
+//        public boolean hasPerm(Player player, String perm, boolean errorMsg) {
+//		if (permission == null) {
+//			if (perm.contains("admin") || perm.contains("free"))
+//				return player.isOp();
+//			return true;
+//		}
+//		String playerName = player.getName();
+//		if (permissions.containsKey(playerName)) {
+//			if (permissions.get(playerName).containsKey(perm))
+//				if (permissions.get(playerName).get(perm))
+//					return true;
+//				else {
+//					if (errorMsg)
+//						player.sendMessage(ChatColor.RED
+//								+ "You don't have the Permissions to do that " + ChatColor.BLUE
+//								+ "(" + perm + ")");
+//					return false;
+//				}
+//
+//			if (permission.has(player, perm)) {
+//				permissions.get(playerName).put(perm, true);
+//				return true;
+//			} else {
+//				permissions.get(playerName).put(perm, false);
+//				if (errorMsg)
+//					player.sendMessage(ChatColor.RED + "You don't have the Permissions to do that "
+//							+ ChatColor.BLUE + "(" + perm + ")");
+//			}
+//		} else {
+//			permissions.put(playerName, new HashMap<String, Boolean>());
+//			if (permission.has(player, perm)) {
+//				permissions.get(playerName).put(perm, true);
+//				return true;
+//			} else {
+//				permissions.get(playerName).put(perm, false);
+//				if (errorMsg)
+//					player.sendMessage(ChatColor.RED + "You don't have the Permissions to do that "
+//							+ ChatColor.BLUE + "(" + perm + ")");
+//			}
+//
+//		}
+//
+//		return false;
+//
+//	}
 
 	/**
 	 * iConomy plugin
@@ -143,9 +155,9 @@ public abstract class Worker {
 	 * 
 	 * @return
 	 */
-	public static PermissionHandler getPermission() {
-		return permission;
-	}
+//	public static PermissionHandler getPermission() {
+//		return permission;
+//	}
 
 	/**
 	 * Set iConomy Plugin
@@ -153,21 +165,21 @@ public abstract class Worker {
 	 * @param plugin
 	 * @return
 	 */
-	public static boolean setPermission(PermissionHandler plugin) {
-		if (permission == null) {
-			permission = plugin;
-		} else {
-			return false;
-		}
-		return true;
-	}
+//	public static boolean setPermission(PermissionHandler plugin) {
+//		if (permission == null) {
+//			permission = plugin;
+//		} else {
+//			return false;
+//		}
+//		return true;
+//	}
 
 	/**
 	 * Remove all permissions node for the player from the cache.
 	 * 
 	 * @param player
 	 */
-	public void removePermissionNode(String player) {
-		permissions.remove(player);
-	}
+//	public void removePermissionNode(String player) {
+//		permissions.remove(player);
+//	}
 }

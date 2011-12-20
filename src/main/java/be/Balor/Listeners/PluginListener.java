@@ -21,12 +21,8 @@ import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.event.server.ServerListener;
 
 import be.Balor.Workers.TombWorker;
-import be.Balor.bukkit.Tomb.TombPlugin;
-
-import com.nijikokun.bukkit.Permissions.Permissions;
 import be.Balor.register.payment.Methods;
 
-import org.bukkit.plugin.Plugin;
 
 /**
  * @author Balor (aka Antoine Aflalo)
@@ -42,15 +38,15 @@ public PluginListener() {
 }
     @Override
     public void onPluginEnable(PluginEnableEvent event) {
-        if(TombWorker.getPermission() == null) {
-            Plugin Permissions = TombPlugin.getBukkitServer().getPluginManager().getPlugin("Permissions");
-            if (Permissions != null) {
-                if(Permissions.isEnabled()) {
-                	TombWorker.setPermission(((Permissions) Permissions).getHandler());
-                    System.out.println("[Tomb] Successfully linked with Permissions.");
-                }
-            }
-        }
+//        if(TombWorker.getPermission() == null) {
+//            Plugin Permissions = TombPlugin.getBukkitServer().getPluginManager().getPlugin("Permissions");
+//            if (Permissions != null) {
+//                if(Permissions.isEnabled()) {
+//                	TombWorker.setPermission(((Permissions) Permissions).getHandler());
+//                    System.out.println("[Tomb] Successfully linked with Permissions.");
+//                }
+//            }
+//        }
         if(TombWorker.getPayement() == null) {           
             // Check to see if we need a payment method
             if (!this.Methods.hasMethod()) {
